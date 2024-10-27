@@ -7,6 +7,7 @@ namespace AudioInteract.Features;
 using System.Runtime.CompilerServices;
 using AudioInteract.API.Patches;
 using CentralAuth;
+using Exiled.API.Enums;
 using Exiled.API.Features;
 using Exiled.API.Features.Components;
 using HarmonyLib;
@@ -35,6 +36,17 @@ public static class MusicAPI
     static MusicAPI()
     {
         isInit = true;
+
+        if (Round.IsStarted)
+        {
+            Log.Error("Round have been already started and patches are subscribed later.");
+            Log.Error("THIS MAY CAUSE CRITICAL BUGS.");
+            Log.Error("To prevent this, please, apply patches on plugin start event by MusicAPI.EnsureInit().");
+            Log.Error("Set it in every plugin, who uses music API.");
+            Log.Error("Init will apply only once.");
+
+            IDFix.AutoIncrement = RecyclablePlayerId._autoIncrement++;
+        }
 
         harmony = new(HarmonyID);
         harmony.PatchAll();

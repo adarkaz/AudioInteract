@@ -33,8 +33,6 @@ public class MusicInstance
 
         this.AudioPlayerBase = AudioPlayerBase.Get(linknpc.ReferenceHub);
 
-        this.AudioPlayerBase.AllowUrl = true;
-
         if (!MusicAPI.IsEventsRegistered)
         {
             AudioPlayerBase.OnTrackSelected += (AudioPlayerBase playerBase, bool directPlay, int queuePos, ref string track) =>

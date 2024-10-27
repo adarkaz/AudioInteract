@@ -21,16 +21,10 @@
   <ItemGroup>
 	<None Include="LICENSE.txt" Pack="true" PackagePath="" />
 	<None Include="README.md" Pack="true" PackagePath="" />
-    <PackageReference Include="Costura.Fody" Version="6.0.0-alpha0384" PrivateAssets="All" />
-    <PackageReference Include="EXILED-OFFICIAL" Version="8.12.2" />
-	<PackageReference Include="Fody" Version="6.8.2" PrivateAssets="All" />
+    <PackageReference Include="ExMod.Exiled" Version="8.13.1" />
     <PackageReference Include="NVorbis" Version="0.10.5" />
     <PackageReference Include="StyleCop.Analyzers" Version="1.2.0-beta.556" IncludeAssets="All" PrivateAssets="All" />
 	<AdditionalFiles Include="../../stylecop.json" />
-  </ItemGroup>
-	
-  <ItemGroup>
-    <None Include="FodyWeavers.xsd" />
   </ItemGroup>
   <ItemGroup>
     <Reference Include="MapEditorReborn">
@@ -40,7 +34,7 @@
       <HintPath>..\..\..\CompileFiles\Mirror-Publicized.dll</HintPath>
     </Reference>
     <Reference Include="SCPSLAudioApi">
-      <HintPath>..\..\..\CompileFiles\SCPSLAudioApi.dll</HintPath>
+      <HintPath>..\..\..\CompileFilesNotDelte\SCPSLAudioApi.dll</HintPath>
     </Reference>
     <Reference Include="System" />
     <Reference Include="UnityEngine.CoreModule" HintPath="$(EXILED_REFERENCES)\UnityEngine.CoreModule.dll" />
