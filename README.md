@@ -1,3 +1,9 @@
+# File converting
+Convert you file to ogg with settings below to properly working
+https://convertio.co/ru/mp4-ogg/
+![image](https://github.com/user-attachments/assets/f66160aa-0c3f-494c-858c-dd66d0225df9)
+
+
 # Report bugs
 If you issused any bugs with duplicate ID (there currently release 1.0.5, that maybe fixes it)
 Please report in issuses, or in discord, my tag => scpfoundationceo
