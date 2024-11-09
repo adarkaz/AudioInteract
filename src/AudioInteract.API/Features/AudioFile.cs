@@ -80,6 +80,16 @@ public class AudioFile
     public int Volume { get; set; } = 75;
 
     /// <summary>
+    /// Gets or sets a value indicating whether bot noclip enabled or not.
+    /// </summary>
+    public bool IsNoclipEnabled { get; set; } = true;
+
+    /// <summary>
+    /// Gets or sets scale of bot.
+    /// </summary>
+    public Vector3 Scale { get; set; } = new(0, 0, 0);
+
+    /// <summary>
     /// Gets or sets <see cref="VoiceChatChannel"/> of bot. Default is Intercom.
     /// </summary>
     [Description("Get the voice channel of bot. See https://github.com/klybok-team/AudioInteract/blob/main/src/AudioInteract.Plugin/README.md for more info.")]

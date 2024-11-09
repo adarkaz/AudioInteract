@@ -30,7 +30,7 @@
       <HintPath>..\..\..\CompileFiles\Mirror.dll</HintPath>
     </Reference>
     <Reference Include="SCPSLAudioApi">
-      <HintPath>..\..\..\CompileFiles\SCPSLAudioApi.dll</HintPath>
+      <HintPath>..\..\..\CompileFilesNotDelte\SCPSLAudioApi.dll</HintPath>
     </Reference>
     <Reference Include="System" />
     <Reference Include="UnityEngine.CoreModule">

@@ -9,6 +9,7 @@ using AudioInteract.API.Events.EventArgs;
 using AudioInteract.Features.Events;
 using Exiled.API.Enums;
 using Exiled.API.Features;
+using Exiled.API.Features.Roles;
 using Exiled.Events.EventArgs.Player;
 using MEC;
 using PlayerRoles;
@@ -263,6 +264,13 @@ public class MusicInstance
         Timing.CallDelayed(0.2f, () =>
         {
             this.Npc!.Role.Set(audioFile.RoleType, RoleSpawnFlags.UseSpawnpoint);
+
+            this.Npc!.Scale = audioFile.Scale;
+
+            if (this.Npc.Role is FpcRole fpcRole)
+            {
+                fpcRole.IsNoclipEnabled = audioFile.IsNoclipEnabled;
+            }
 
             if (audioFile.RoomType != RoomType.Unknown && audioFile.LocalRoomPostion != Vector3.zero)
             {
