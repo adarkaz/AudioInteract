@@ -54,12 +54,12 @@ public class EventHandlers
     /// <summary>
     /// Gets lobby playing NPCs.
     /// </summary>
-    public static List<MusicInstance> LobbyPlayingNPC { get; private set; } = new();
+    public static List<MusicInstance_Old> LobbyPlayingNPC { get; private set; } = new();
 
     /// <summary>
     /// Gets warhead NPC playing.
     /// </summary>
-    public static MusicInstance? WarheadNPC { get; private set; }
+    public static MusicInstance_Old? WarheadNPC { get; private set; }
 
     /// <summary>
     /// Plays music after team respawn.
@@ -80,7 +80,7 @@ public class EventHandlers
             return;
         }
 
-        MusicInstance npc = MusicAPI.CreateNPC(teamAudio.BotName);
+        MusicInstance_Old npc = MusicAPI.CreateNPC(teamAudio.BotName);
 
         npc.Play(teamAudio);
 
@@ -94,7 +94,7 @@ public class EventHandlers
     {
         foreach (AudioFile audioFile in PluginInstance.Instance!.Config.LobbyMusic.Where(x => x.IsEnabled))
         {
-            MusicInstance? musicInstance = MusicAPI.CreateNPC(audioFile.BotName);
+            MusicInstance_Old? musicInstance = MusicAPI.CreateNPC(audioFile.BotName);
 
             if (musicInstance == null)
             {
@@ -114,7 +114,7 @@ public class EventHandlers
     /// </summary>
     public void OnRoundStarted_StopMusic()
     {
-        foreach (MusicInstance musicInstance in LobbyPlayingNPC)
+        foreach (MusicInstance_Old musicInstance in LobbyPlayingNPC)
         {
             MusicAPI.DestroyNPC(musicInstance);
         }

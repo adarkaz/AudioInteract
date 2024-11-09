@@ -5,7 +5,6 @@
 namespace AudioInteract.Plugin.Commands;
 
 using CommandSystem;
-using global::AudioInteract.Features;
 
 /// <summary/>
 [CommandHandler(typeof(RemoteAdminCommandHandler))]
@@ -20,7 +19,7 @@ public class AudioPlayerParent : ParentCommand
     /// <summary>
     /// Gets or sets audio file.
     /// </summary>
-    public static Dictionary<int, MusicInstance> BotID { get; set; } = new();
+    public static Dictionary<int> BotID { get; set; } = new();
 
     /// <summary>
     /// Gets or sets increment bot ID.

@@ -36,7 +36,7 @@ public class Remove : ICommand
             return false;
         }
 
-        if (!AudioPlayerParent.BotID.TryGetValue(search_value, out MusicInstance? info))
+        if (!AudioPlayerParent.BotID.TryGetValue(search_value, out MusicInstance_Old? info))
         {
             response = "Bot not found.";
             return false;

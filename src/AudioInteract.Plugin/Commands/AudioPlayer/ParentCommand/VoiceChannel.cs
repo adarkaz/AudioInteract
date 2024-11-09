@@ -36,7 +36,7 @@ public class VoiceChannel : ICommand
             return false;
         }
 
-        if (!AudioPlayerParent.BotID.TryGetValue(search_value, out Features.MusicInstance? info))
+        if (!AudioPlayerParent.BotID.TryGetValue(search_value, out Features.MusicInstance_Old? info))
         {
             response = "Bot not found.";
             return false;
