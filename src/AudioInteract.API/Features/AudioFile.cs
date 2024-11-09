@@ -82,11 +82,13 @@ public class AudioFile
     /// <summary>
     /// Gets or sets a value indicating whether bot noclip enabled or not.
     /// </summary>
+    [Description("Indicates noclip of bot is enabled or not.")]
     public bool IsNoclipEnabled { get; set; } = true;
 
     /// <summary>
     /// Gets or sets scale of bot.
     /// </summary>
+    [Description("Sets scale of bot.")]
     public Vector3 Scale { get; set; } = new(0, 0, 0);
 
     /// <summary>
