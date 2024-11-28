@@ -6,6 +6,7 @@ namespace AudioInteract.Plugin.Configs;
 
 using System.ComponentModel;
 using AudioInteract.Features;
+using Exiled.API.Features;
 using Exiled.API.Interfaces;
 using PlayerRoles;
 using Respawning;
@@ -23,7 +24,7 @@ public sealed class Plugin : IConfig
 
     /// <summary/>
     [Description("Indicates will plugin register and try to play music or not.")]
-    public bool IsEventsEnabled { get; set; } = false;
+    public bool IsEventsEnabled { get; set; } = true;
 
     /// <summary/>
     [Description("Plays music in lobby. Remove value IsEnabled or set value to true to enable it.")]
@@ -34,7 +35,7 @@ public sealed class Plugin : IConfig
             {
                 IsEnabled = false,
                 BotName = "Lobby Music",
-                FilePath = Path.Combine(AudioFile.RawFilePath, "lobby_music.ogg"),
+                FilePath = Path.Combine(Paths.Config, "lobby_music.ogg"),
                 IsLooped = true,
                 VoiceChannel = VoiceChat.VoiceChatChannel.Intercom,
                 Volume = 75,
@@ -49,7 +50,7 @@ public sealed class Plugin : IConfig
     {
         IsEnabled = false,
         BotName = "Warhead Music",
-        FilePath = Path.Combine(AudioFile.RawFilePath, "warhead_music.ogg"),
+        FilePath = Path.Combine(Paths.Config, "warhead_music.ogg"),
         IsLooped = true,
         VoiceChannel = VoiceChat.VoiceChatChannel.Intercom,
         Volume = 75,
@@ -66,7 +67,7 @@ public sealed class Plugin : IConfig
             {
                 IsEnabled = false,
                 BotName = "MTF",
-                FilePath = Path.Combine(AudioFile.RawFilePath, "mtf.ogg"),
+                FilePath = Path.Combine(Paths.Config, "mtf.ogg"),
                 IsLooped = false,
                 VoiceChannel = VoiceChat.VoiceChatChannel.Intercom,
                 Volume = 75,
@@ -79,7 +80,7 @@ public sealed class Plugin : IConfig
             {
                 IsEnabled = false,
                 BotName = "CI",
-                FilePath = Path.Combine(AudioFile.RawFilePath, "ci.ogg"),
+                FilePath = Path.Combine(Paths.Config, "ci.ogg"),
                 IsLooped = false,
                 VoiceChannel = VoiceChat.VoiceChatChannel.Intercom,
                 Volume = 75,

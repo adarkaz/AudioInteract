@@ -5,10 +5,13 @@
 namespace AudioInteract.API.Features;
 
 using AdminToys;
+using Exiled.API.Features;
 using Exiled.API.Interfaces;
 using MEC;
 using NAudio.Lame;
 using NAudio.Wave;
+using System.Reflection;
+using UnityEngine.Windows;
 using VoiceChat;
 using VoiceChat.Codec;
 using VoiceChat.Codec.Enums;
@@ -27,6 +30,11 @@ public class Speaker : IWrapper<SpeakerToy>
     {
         this.Base = new();
 
+        this.Base.Playback = new();
+        this.Base.Playback.Buffer = new();
+
+        this.PlaybackCoroutine = Timing.RunCoroutine(this.Playback());
+
         Instances.Add(this);
     }
 
@@ -38,7 +46,17 @@ public class Speaker : IWrapper<SpeakerToy>
     {
         this.Base = new();
 
+        this.PlaybackCoroutine = Timing.RunCoroutine(this.Playback());
+
         Instances.Add(this);
+    }
+
+    /// <summary>
+    /// Finalizes an instance of the <see cref="Speaker"/> class.
+    /// </summary>
+    ~Speaker()
+    {
+        Timing.KillCoroutines(this.PlaybackCoroutine);
     }
 
     /// <summary>
@@ -50,6 +68,11 @@ public class Speaker : IWrapper<SpeakerToy>
     /// Gets <see cref="SpeakerToy"/>.
     /// </summary>
     public SpeakerToy Base { get; private set; }
+
+    /// <summary>
+    /// Gets base playback buffer.
+    /// </summary>
+    public PlaybackBuffer Buffer => this.Base.Playback.Buffer;
 
     #region Fields
 
@@ -106,23 +129,12 @@ public class Speaker : IWrapper<SpeakerToy>
     /// <summary>
     /// Gets or sets playback coroutine.
     /// </summary>
-    public CoroutineHandle? PlaybackCoroutine { get; set; }
-
-    /// <summary>
-    /// Gets in-game encoder used to encode voice data.
-    /// </summary>
-    public OpusEncoder OpusEncoder { get; internal set; } = new(OpusApplicationType.Voip);
-
-    /// <summary>
-    /// Gets or sets current state of playback state.
-    /// </summary>
-    public PlaybackState State { get; set; } = PlaybackState.Stopped;
+    public CoroutineHandle PlaybackCoroutine { get; set; }
 
     /// <summary>
     /// Gets a value indicating whether player is stopped (not playing) or not.
     /// </summary>
-    public bool IsStopped => this.State == PlaybackState.Stopped
-        || this.State == PlaybackState.Paused;
+    public bool IsStopped { get; internal set; } = false;
 
     /// <summary>
     /// Gets currently playing track (can be url and file path).
@@ -135,50 +147,94 @@ public class Speaker : IWrapper<SpeakerToy>
     public List<string> EnqueuedTracks { get; private set; } = new();
 
     /// <summary>
+    /// Gets current play status.
+    /// </summary>
+    public PlayStatus Status { get; internal set; } = PlayStatus.Stopped;
+
+    /// <summary>
     /// Playback coroutine.
     /// </summary>
     /// <returns>Time until new cycle.</returns>
-    public IEnumerable<float> Playback()
+    public IEnumerator<float> Playback()
     {
         while (true)
         {
-            if (this.IsStopped && !this.EnqueuedTracks.Any())
+            if (this.Status == PlayStatus.Playing)
             {
-                yield return Timing.WaitUntilTrue(() => this.EnqueuedTracks.Any());
+                yield break;
+            }
+
+            if (this.Base is null || this is null)
+            {
+                yield break;
+            }
+
+            if (!this.EnqueuedTracks.Any() || EnqueuedTracks.Count == 0)
+            {
+                yield return Timing.WaitUntilTrue(() => this.EnqueuedTracks.Any() && this.EnqueuedTracks.Count != 0);
             }
 
             if (string.IsNullOrEmpty(this.CurrentlyPlaying))
             {
-                var randomValue = this.Shuffle ? new Random().Next(0, this.EnqueuedTracks.Count) : 0;
+                this.CurrentlyPlaying = this.EnqueuedTracks.FirstOrDefault();
 
-                this.CurrentlyPlaying = this.EnqueuedTracks[randomValue];
+                // Log.Info("posy3");
+                // var randomValue = this.Shuffle ? new Random().Next(0, this.EnqueuedTracks.Count) : 0;
+                //
+                // this.CurrentlyPlaying = this.EnqueuedTracks[randomValue];
 
-                this.EnqueuedTracks.RemoveAt(randomValue);
+                // this.EnqueuedTracks.RemoveAt(randomValue);
             }
 
+            /*
             // конвертим в 48000 1 channel
             var reader = new AudioFileReader(this.CurrentlyPlaying);
             using (var writer = new LameMP3FileWriter(reader, WaveFormat.CreateALawFormat(VoiceChatSettings.SampleRate, VoiceChatSettings.Channels), LAMEPreset.V9))
             {
                 writer.CopyTo(reader);
+            }*/
+            try
+            {
+                Log.Info("posy6");
+
+                var reader = new AudioFileReader(this.CurrentlyPlaying);
+                Log.Info("posy777");
+                using (var writer = new LameMP3FileWriter(reader, WaveFormat.CreateALawFormat(VoiceChatSettings.SampleRate, VoiceChatSettings.Channels), LAMEPreset.V9))
+                {
+                    writer.CopyTo(reader);
+                }
+
+                float[] buffer = new float[reader.Length / 2];
+
+                reader.Read(buffer, 0, buffer.Length);
+
+                this.Buffer.Write(buffer, buffer.Length);
+
+                yield break;
+                this.Status = PlayStatus.Playing;
+            }
+            catch(System.Exception ex)
+            {
+                Log.Error(ex);
             }
         }
     }
 
     /// <summary>
-    /// Resume current playing track.
+    /// Play track.
     /// </summary>
-    public void Resume() => this.State = PlaybackState.Playing;
+    /// <param name="path">Track path.</param>
+    public void Play(string path)
+    {
+        if (!File.Exists(path))
+        {
+            Log.Warn($"[{Assembly.GetCallingAssembly().FullName}] Trying to play unexists file. Skipping.");
 
-    /// <summary>
-    /// Pause current playing track.
-    /// </summary>
-    public void Pause() => this.State = PlaybackState.Paused;
+            return;
+        }
 
-    /// <summary>
-    /// Stop current playing track.
-    /// </summary>
-    public void Stop() => this.State = PlaybackState.Stopped;
+        this.EnqueuedTracks.Add(path);
+    }
 
     #endregion
 }

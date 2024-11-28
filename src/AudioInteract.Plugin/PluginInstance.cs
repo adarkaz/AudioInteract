@@ -4,7 +4,9 @@
 
 namespace AudioInteract.Plugin;
 
+using AudioInteract.API.Features;
 using AudioInteract.Features;
+using Exiled.API.Features;
 
 // НА 5 ЛАЙКОВ ДОБАВЛЯЮ НОВЫЕ ИВЕНТЫ ДЛЯ АЙПИ
 // СТАВЬТЕ ЛАЙК И МЕРЖИТЕ СВОЙ ПУЛЛ РЕКВЕСТ - 1 лайк
@@ -37,9 +39,12 @@ public class PluginInstance : Exiled.API.Features.Plugin<Configs.Plugin>
     {
         Instance = this;
 
-        this.EventHandlers = new();
+        Log.Info("sirnie sasikski");
+        Speaker? speaker = new();
 
-        MusicAPI.EnsureInit();
+        speaker.Play(@"D:\mater\soundpad\бананчики.mp3");
+
+        speaker.IsSpatial = true;
 
         base.OnEnabled();
     }

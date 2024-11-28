@@ -21,7 +21,10 @@
   <ItemGroup>
 	<None Include="LICENSE.txt" Pack="true" PackagePath="" />
 	<None Include="README.md" Pack="true" PackagePath="" />
-    <PackageReference Include="ExMod.Exiled" Version="8.13.1" />
+	<PackageReference Include="Costura.Fody" Version="6.0.0-beta0000">
+	  <PrivateAssets>all</PrivateAssets>
+	</PackageReference>
+    <PackageReference Include="ExMod.Exiled" Version="9.0.0-alpha.1" />
     <PackageReference Include="NAudio" Version="2.2.1" />
     <PackageReference Include="NAudio.Lame" Version="2.1.0" />
     <PackageReference Include="StyleCop.Analyzers" Version="1.2.0-beta.556" IncludeAssets="All" PrivateAssets="All" />

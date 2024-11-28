@@ -8,6 +8,11 @@
 	<PlatformTarget>x64</PlatformTarget>
 	<AllowUnsafeBlocks>True</AllowUnsafeBlocks>
   </PropertyGroup>
+  <ItemGroup>
+    <Compile Remove="Commands\**" />
+    <EmbeddedResource Remove="Commands\**" />
+    <None Remove="Commands\**" />
+  </ItemGroup>
 
   <ItemGroup>
     <None Remove=".gitattributes" />
