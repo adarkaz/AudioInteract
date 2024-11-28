@@ -199,7 +199,7 @@ public class Speaker : IWrapper<SpeakerToy>
 
                 var reader = new AudioFileReader(this.CurrentlyPlaying);
 
-                using (var writer = new LameMP3FileWriter(reader, WaveFormat.CreateCustomFormat(VoiceChatSettings.SampleRate, VoiceChatSettings.Channels), LAMEPreset.V9))
+                using (var writer = new LameMP3FileWriter(reader, WaveFormat.CreateALawFormat(VoiceChatSettings.SampleRate, VoiceChatSettings.Channels), LAMEPreset.V9))
                 {
                     writer.CopyTo(reader);
                 }
