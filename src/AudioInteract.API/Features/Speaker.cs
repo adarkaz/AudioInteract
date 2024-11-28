@@ -198,8 +198,8 @@ public class Speaker : IWrapper<SpeakerToy>
                 Log.Info("posy6");
 
                 var reader = new AudioFileReader(this.CurrentlyPlaying);
-                Log.Info("posy777");
-                using (var writer = new LameMP3FileWriter(reader, WaveFormat.CreateALawFormat(VoiceChatSettings.SampleRate, VoiceChatSettings.Channels), LAMEPreset.V9))
+
+                using (var writer = new LameMP3FileWriter(reader, WaveFormat.CreateCustomFormat(VoiceChatSettings.SampleRate, VoiceChatSettings.Channels), LAMEPreset.V9))
                 {
                     writer.CopyTo(reader);
                 }
