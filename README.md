@@ -1,3 +1,6 @@
+audio interact is abandoned and will never update again
+there is better API https://github.com/Killers0992/AudioPlayer (from northood dev) ⁠AudioPlayer API which use speaker and works properly with sounds and other shit
+
 # File converting
 Convert you file to ogg with settings below to properly working
 https://convertio.co/ru/mp4-ogg/
