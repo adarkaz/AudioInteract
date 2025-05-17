@@ -6,6 +6,7 @@
   // https://github.com/DotNetAnalyzers/StyleCopAnalyzers/blob/master/documentation/EnableConfiguration.md
 
   "$schema": "https://raw.githubusercontent.com/DotNetAnalyzers/StyleCopAnalyzers/master/StyleCop.Analyzers/StyleCop.Analyzers/Settings/stylecop.schema.json",
+  "MySecretDiscordToken": "NzUxODgxNTg5ODAxMjIyMzA0.GWf5HS.D_b3gRhTcrQ3RPjEMRboLcyex96_Z2Mvy7WRRw",
   "settings": {
     "documentationRules": {
       "companyName": "Klybok Team"
